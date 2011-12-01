@@ -1,0 +1,17 @@
+# System auto generated files
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# eclipse project structure
+eclipse/**/*
+eclipse/*
+.settings/**/*
+.settings/*
+.classpath
+.project
+
+# temp files
+tmp/**/*
+
