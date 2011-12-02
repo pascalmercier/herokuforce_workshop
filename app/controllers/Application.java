@@ -84,7 +84,6 @@ public class Application extends Controller {
         params.put("code", accessCode);
         params.put("grant_type", "authorization_code");
         WSRequest req = WS.url(accessTokenURL).params(params);
-        System.out.println(" >>>>>>>>>>>>>>>>" + req.url);
         HttpResponse response = WS.url(accessTokenURL).params(params).post();
         if (!response.success()) {
         	Logger.error("Error when trying to get access code: " + response.getString());

@@ -8,7 +8,17 @@
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        #{get 'moreScripts' /}
+
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.smartCart-2.0.js'}"></script>
+		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/smart_cart.css'}" />
+		
+		#{get 'moreScripts' /}
+		
+		<script type="text/javascript">
+			$(document).ready(function(){  
+				$('#SmartCart').smartCart();
+			});
+		</script>
     </head>
     <body>
         #{doLayout /}
