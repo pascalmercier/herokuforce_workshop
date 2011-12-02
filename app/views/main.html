@@ -50,6 +50,19 @@
 					// Other Options
 					highlight: true     // toggle highlight effect to the added item
 				});
+				
+				$("#sc_cart form").submit(function(){
+					var idString = '';
+					var qtyString = '';
+					$(".scCartListItem").each(function(index)
+						{
+							idString += $(this).attr('rel') + ',';
+							qtyString += $(this).find('.cartQty').html() + ',';
+					});
+					idString = idString.substring(0, idString.length()-1);
+					qtyString = qtyString.substring(0, qtyString.length()-1);
+					alert('alpha');
+				});
 			});
 		</script>
     </head>

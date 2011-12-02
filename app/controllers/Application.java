@@ -33,7 +33,28 @@ public class Application extends Controller {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
+		
     }
+    
+    
+    public static void makePurchase(String merchIDList, String merchQList)
+    { //** HEY FRENCHIE-
+    		//Ok so I set up the form to return to this method, and JQ is creating composite strings of Quantities and IDs, in order
+    		//To provide you with what you need in config(). I can't get this to run 100% but it should give you a good position Monday.
+    		//I added photos, the logic there is just ot look up the id. Good times.
+    	/*String[] IDList = merchIDList.split(",");
+		String[] QList = merchQList.split(",");
+		Map<String,Object> idQMap = new HashMap<String,Object>();
+		Integer x = 0;
+		for(String s : IDList)
+		{
+			idQMap.put(IDList[x], QList[x]);
+			x++;
+		}
+		//now have a map of ID,Quantity
+    	*/
+    }
+    
     
     public static void config() {
     	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessToken();
@@ -41,12 +62,16 @@ public class Application extends Controller {
     	
     	String invoiceStatementId = SfdcUtil.insertInvoiceStatement(session.getId(), "userInfo");
     	
+    	
+    	
+    	
     	Map<String, Object> lineItem = new HashMap<String, Object>();
     	lineItem.put("Name", "");
     	lineItem.put("Invoice_Statement__c", invoiceStatementId);
     	lineItem.put("Merchandise__c", "");
     	lineItem.put("Unit_Price__c", "");
     	lineItem.put("Units_Sold__c", "");
+    	
     	
     	//SfdcUtil.insertLineItems(lineItems, session.getId(), "user-Info");
     	throw new Redirect("/result");

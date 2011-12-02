@@ -136,8 +136,8 @@
                   var itemPrice =  $(options.itemPriceSelectorPrefix+itemId).html();
                   var itemTotal = itemPrice*itemQty;
                   itemTotal = itemTotal.toFixed(2);
-                  var itemText = "<table width='100%'><tr><td>"+tmpOpt.html()+"</td><td width='70px'>"+itemQty+
-                                 "</td><td width='130px'>"+itemTotal+"</td></tr></table>";
+                  var itemText = "<table width='100%'><tr><td>"+tmpOpt.html()+"</td><td width='70px' class='cartQty'>"+itemQty+
+                                 "</td><td width='130px' class='cartTotal'>"+itemTotal+"</td></tr></table>";
           				var $itemLabel = $("<span></span>")
           					.addClass(options.listItemLabelClass)
           					.html(itemText); 
