@@ -6,9 +6,8 @@
 GET     /                                       Application.index
 GET		/config									Application.config
 
-# Online shop
-GET		/shop									Shop.index
-GET		/shop2									Shop.shop2
+GET		/purchase								Application.purchase
+GET		/result									Application.result
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

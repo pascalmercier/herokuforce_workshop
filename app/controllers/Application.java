@@ -18,13 +18,6 @@ import util.gson.SfdcRecord;
 public class Application extends Controller {
 
     public static void index() {
-		/*    	
-    	try {
-			SfdcOAuth.retrieveVerificationCodeWithCredentials();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		*/
     	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessTokenWithCredentials();
     	
     	initCacheFromResponse(response, "sfdcInfo");
@@ -46,7 +39,22 @@ public class Application extends Controller {
     	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessToken();
     	initCacheFromResponse(response, "userInfo");
     	
+    	String invoiceStatementId = SfdcUtil.insertInvoiceStatement(session.getId(), "userInfo");
     	
+    	Map<String, Object> lineItem = new HashMap<String, Object>();
+    	lineItem.put("Name", "");
+    	lineItem.put("Invoice_Statement__c", invoiceStatementId);
+    	lineItem.put("Merchandise__c", "");
+    	lineItem.put("Unit_Price__c", "");
+    	lineItem.put("Units_Sold__c", "");
+    	
+    	//SfdcUtil.insertLineItems(lineItems, session.getId(), "user-Info");
+    	throw new Redirect("/result");
+    }
+    
+    public static void result() {
+    	System.out.println("Query to get all lineItems related to the created Invoice Statement");
+    	render();
     }
     
     private static void initCacheFromResponse(SfdcOAuthResponse response, String whichCache){
@@ -64,7 +72,9 @@ public class Application extends Controller {
 		sfdcInfo.put("signature", Crypto.encryptAES(response.signature));
 		sfdcInfo.put("issuedAt", response.issuedAt);
 		
-		Cache.set(session.getId() + "-" + whichCache, sfdcInfo, expiration);		
+		Cache.set(session.getId() + "-" + whichCache, sfdcInfo, expiration);
+		
+		System.out.println("Cache init for " + session.getId() + " on " + whichCache);
     }
     
 
