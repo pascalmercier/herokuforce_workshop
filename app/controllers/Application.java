@@ -18,23 +18,38 @@ import util.gson.SfdcRecord;
 public class Application extends Controller {
 
     public static void index() {
-		try {
+		/*    	
+    	try {
+			SfdcOAuth.retrieveVerificationCodeWithCredentials();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		*/
+    	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessTokenWithCredentials();
+    	
+    	initCacheFromResponse(response, "sfdcInfo");
+    	
+    	// Load Merchandises
+    	List<SfdcRecord> merchandises = SfdcUtil.getRecords(session.getId(), "select Id, IsDeleted, Name, CreatedDate, LastModifiedDate, SystemModstamp, Description__c, Price__c, Total_Inventory__c from Merchandise__c where IsDeleted = false and Total_Inventory__c > 0");
+        render(merchandises);
+    }
+    
+    public static void purchase() {
+    	try {
 			SfdcOAuth.retrieveVerificationCode();
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
     
     public static void config() {
     	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessToken();
+    	initCacheFromResponse(response, "userInfo");
     	
-    	initCacheFromResponse(response);		
-		
-    	throw new Redirect("/shop");
+    	
     }
     
-    private static void initCacheFromResponse(SfdcOAuthResponse response){
+    private static void initCacheFromResponse(SfdcOAuthResponse response, String whichCache){
     	String expiration = "30mn";
     	Cache.set("instanceUrl", response.instanceUrl, expiration);
     	
@@ -49,7 +64,7 @@ public class Application extends Controller {
 		sfdcInfo.put("signature", Crypto.encryptAES(response.signature));
 		sfdcInfo.put("issuedAt", response.issuedAt);
 		
-		Cache.set(session.getId() + "-sfdcInfo", sfdcInfo, expiration);		
+		Cache.set(session.getId() + "-" + whichCache, sfdcInfo, expiration);		
     }
     
 

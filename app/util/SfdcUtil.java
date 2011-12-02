@@ -16,6 +16,8 @@ import com.google.gson.JsonElement;
 
 public class SfdcUtil {
 	private final static String QUERY_REST_ENDPOINT = "/services/data/v22.0/query/";
+    private final static String INVOICE_STATEMENT_REST_ENDPOINT = "/services/data/v22.0/sobjects/Invoice_Statement__c/";
+    private final static String LINE_ITEM_REST_ENDPOINT = "/services/data/v22.0/sobjects/Line_Item__c/";
 	
 	public static List<SfdcRecord> getRecords(String sessionId, String query) {	
 		// Get instanceUrl and userInfo from cache

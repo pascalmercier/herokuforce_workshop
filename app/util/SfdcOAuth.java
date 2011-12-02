@@ -21,6 +21,9 @@ public class SfdcOAuth {
 	private final static String consumerSecret = "4310885807798930562";
 	private final static String redirectUri = "https://localhost:9090/config";
 	
+	// Credentials for public access
+	private final static String username = "sse@herokuforce.com";
+	private final static String password = "DublinRocks1";	
 	
 	public static SfdcOAuthResponse retrieveSfdcAccessToken() {
     	System.out.println("** Retrieve access token **");
@@ -40,20 +43,22 @@ public class SfdcOAuth {
         Gson gson = new Gson();
         return gson.fromJson(response.getJson(), SfdcOAuthResponse.class);
     }
-    
-    public SfdcOAuthResponse refreshSfdcAccessToken(String refreshToken) {
+	
+	public static SfdcOAuthResponse retrieveSfdcAccessTokenWithCredentials() {
+    	System.out.println("** Retrieve access token with credentials **");
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("client_id", consumerKey);
         params.put("client_secret", consumerSecret);
-        params.put("grant_type", "refresh_token");
-        params.put("refresh_token", refreshToken);
+        params.put("redirect_uri", redirectUri);
+        params.put("grant_type", "password");
+        params.put("username", username);
+        params.put("password", password);
+
         HttpResponse response = WS.url(accessTokenURL).params(params).post();
         if (!response.success()) {
-        	
-        	System.out.println("XXXXXXXXXXXXXX  " + response.getJson().getAsString());
-        	throw new IllegalStateException("Error when trying to get access code: " + response.getJson().getAsString());
+        	Logger.error("Error when trying to get access code: " + response.getString());
         }
-        System.out.println("XXXXXXXXXXXXXX  " + response.getJson().getAsString());
+        System.out.println("Response: " + response.getString());
         Gson gson = new Gson();
         return gson.fromJson(response.getJson(), SfdcOAuthResponse.class);
     }
@@ -70,6 +75,23 @@ public class SfdcOAuth {
     	System.out.println(urlStr);
     	
     	throw new Redirect(urlStr);
+    }
+    
+    public SfdcOAuthResponse refreshSfdcAccessToken(String refreshToken) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("client_id", consumerKey);
+        params.put("client_secret", consumerSecret);
+        params.put("grant_type", "refresh_token");
+        params.put("refresh_token", refreshToken);
+        HttpResponse response = WS.url(accessTokenURL).params(params).post();
+        if (!response.success()) {
+        	
+        	System.out.println("XXXXXXXXXXXXXX  " + response.getJson().getAsString());
+        	throw new IllegalStateException("Error when trying to get access code: " + response.getJson().getAsString());
+        }
+        System.out.println("XXXXXXXXXXXXXX  " + response.getJson().getAsString());
+        Gson gson = new Gson();
+        return gson.fromJson(response.getJson(), SfdcOAuthResponse.class);
     }
 
 }

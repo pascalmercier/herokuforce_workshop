@@ -1,4 +1,64 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'HerokuForce SmartCart' /}
 
-
+<div id="smartcart" class="scContainer"> 
+	<div id="sc_productlist" class="scProductList">
+		#{list items:merchandises, as:'m'}
+		<div class="scProductListItem">
+			<table border="0" cellpadding="2" cellspacing="2">
+				<tr>
+					<td><strong><span id="prod_name${m.id}">${m.name}</span></strong></td>
+				</tr>
+				<tr>
+					<td><small><span id="prod_desc">${m.desc}</span></small></td>
+				</tr>
+				<tr>
+					<td><label>Price:</label> $<span id="prod_price${m.id}">${m.price}</span></td>
+				</tr>
+				<tr>
+					<td><label>Quantity:</label>
+					<input name="prod_qty" class="scText" id="prod_qty${m.id}" value="1" size="3" type="text">
+					<input type="button" rel="${m.id}" class="scItemButton scBtn" value="Add Product"></td>
+				</tr>
+			</table>
+		</div>
+	    #{/list}
+	</div>
+	    
+	<div id="sc_cart" class="scCart">
+		<!-- Selected Product ID/Quantity are stored on the <select> element below -->
+		<select id="product_list" name="product_list[]" style="display:none;" multiple="multiple"></select>
+		 
+		<!-- Cart List Header -->
+		<div class="scCartListHead">
+			<table width='100%'>
+				<tr>
+					<td>&nbsp;&nbsp;Product</td>
+					<td width='80px'>Quantity</td>
+					<td width='130px'>Amount ($)</td>
+				</tr>
+			</table>
+		</div>
+		<!-- Cart List: Selected Products are listed inside div below -->
+		<div id="sc_cartlist" class="scCartList"></div><br>
+		<div class="scCartListHead">
+			<table width='100%'>
+				<tr>
+					<td> 
+						<!-- Message Label -->
+						<span id="sc_message"></span>
+					</td>
+					<td width='100px'>Subtotal ($):</td>
+					<td width='120px'>
+						<!-- Sub Total Label -->
+						<span id="sc_subtotal"></span> 
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<!-- Checkout Button -->
+		<input style="width:200px;height:35px;float:left;" type="button" class="scBtn" value="Register Interest" >
+		<input style="width:200px;height:35px;float:right;" type="button" class="scBtn" value="Purchase" >	
+	</div>
+</div>
