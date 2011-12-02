@@ -9,14 +9,47 @@
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
         <script src="@{'/public/javascripts/jquery-1.5.2.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 
-		<script type="text/javascript" src="@{'/public/javascripts/jquery.smartCart-2.0.js'}"></script>
-		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/smart_cart.css'}" />
-		
+		<script type="text/javascript" src="@{'/public/javascripts/jquery-ui-1.7.2.custom.min.js'}"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/jquery.scrollTo-min.js'}"></script>
+		<script type="text/javascript" src="@{'/public/javascripts/SmartCart.js'}"></script>
+		 
+		<link rel="stylesheet" type="text/css" href="@{'/public/stylesheets/style_smartcart.css'}" />
+
 		#{get 'moreScripts' /}
 		
 		<script type="text/javascript">
 			$(document).ready(function(){  
-				$('#SmartCart').smartCart();
+				$("#sc_cart").smartCart({
+					// Most Required Options - Element Selectors
+					itemSelector: '.scItemButton', // collection of buttons which add items to cart
+					cartListSelector: '#sc_cartlist', // element in which selected items are listed
+					subTotalSelector: '#sc_subtotal', // element in which subtotal shows
+					 
+					messageBox: '#sc_message', // element in which messages are displayed
+					// Prefix Item Attribute Selector - Required
+					itemNameSelectorPrefix: '#prod_name', // combination of this data and product/item 
+					                                      // id is used to get an element in product 
+					                                      //  list with the item name
+					itemQuantitySelectorPrefix: '#prod_qty', // for quantity ( should be a textbox/<select>)
+					itemPriceSelectorPrefix: '#prod_price',  // for price (can be a div/span)
+					 
+					// Text Labels
+					removeLabel: 'remove',  // text for the "remove" link
+					addedLabel: '1 item added to cart', // text to show message when an item is added
+					removedLabel: '1 item removed from cart', // text to show message when an item is removed
+					emptyCartLabel: '<b>Your Cart is Empty!</b>', // text for empty cart
+					 
+					// Css Classes
+					selectClass: 'scProductSelect', // css class for the <select> element
+					listClass: 'scULList',     // css class for the list ($ol)
+					listItemClass: 'scCartListItem', // css class for the <li> list items
+					listItemLabelClass: 'scListItemLabel', // css class for the label text that in list items
+					removeClass: 'scListItemRemove',   // css class given to the "remove" link
+					highlightClass: 'scHighlight',    // css class given to the highlight <span>
+					 
+					// Other Options
+					highlight: true     // toggle highlight effect to the added item
+				});
 			});
 		</script>
     </head>

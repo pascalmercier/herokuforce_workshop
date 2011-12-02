@@ -1,13 +1,64 @@
 #{extends 'main.html' /}
-#{set title:'index.html' /}
+#{set title:'HerokuForce SmartCart' /}
 
-<h1>Welcome to the most awesome online shop ever</h1>
-
-<div id="SmartCart" class="scMain">
-    <input type="hidden" pprice="2299.99" pdesc="The 2.5GHz quad-core Intel Core i7 processor Ñ with Turbo Boost speeds up to 3.6GHz and up to 8MB of shared L3 cache Ñ enables these MacBook Pro models to run applications up to twice as fast as their top-of-the-line predecessors." pname="Apple MacBook Pro MA464LL/A 15.4" pid="100">
-    <input type="hidden" pprice="599.99" pdesc="Re-defining the perception of advanced mobile phones the HTC Touch Diamond signals a giant leap forward in combining hi-tech prowess with intuitive usability and exhilarating design." pname="HTC Touch Diamond" pid="101">
-    <input type="hidden" pprice="699.00" pdesc="The dual-core A5 chip delivers even more power. The 8MP camera with all-new optics also shoots 1080p HD video. And if thereÕs anything else you need, just ask Siri." pname="Apple iPhone 4S 32GB White" pid="102">
-    <input type="hidden" pprice="749.99" pdesc="Canon EOS Digital Rebel XT SLR adds resolution, speed, extra creative control, and enhanced comfort in the hand to one of the smallest and lightest digital cameras in its class." pname="Canon Digital Rebel XT 8MP Digital SLR Camera" pid="103">
-    <input type="hidden" pprice="2699.99" pdesc="Weighing in at just an amazing 2.84 pounds and offering a sleek, durable carbon-fiber case in charcoal black. And with 4 to 10 hours of standard battery life, it has the stamina to power you through your most demanding applications." pname="Sony VAIO 11.1 Notebook PC" pid="104">
-    <input type="hidden" pprice="2299.99" pdesc="Two cameras for FaceTime and HD video recording. The dual-core A5 chip. 10-hour battery life. Over 200 new software features in iOS 5. And iCloud. All in a remarkably thin, light design. ThereÕs so much to iPad, itÕs amazing thereÕs so little of it." pname="Apple iPad2 32GB Black" pid="105">
+<div id="smartcart" class="scContainer"> 
+	<div id="sc_productlist" class="scProductList">
+		#{list items:merchandises, as:'m'}
+		<div class="scProductListItem">
+			<table border="0" cellpadding="2" cellspacing="2">
+				<tr>
+					<td><strong><span id="prod_name${m.id}">${m.name}</span></strong></td>
+				</tr>
+				<tr>
+					<td><small><span id="prod_desc">${m.desc}</span></small></td>
+				</tr>
+				<tr>
+					<td><label>Price:</label> $<span id="prod_price${m.id}">${m.price}</span></td>
+				</tr>
+				<tr>
+					<td><label>Quantity:</label>
+					<input name="prod_qty" class="scText" id="prod_qty${m.id}" value="1" size="3" type="text">
+					<input type="button" rel="${m.id}" class="scItemButton scBtn" value="Add Product"></td>
+				</tr>
+			</table>
+		</div>
+	    #{/list}
+	</div>
+	    
+	<div id="sc_cart" class="scCart">
+		<!-- Selected Product ID/Quantity are stored on the <select> element below -->
+		<select id="product_list" name="product_list[]" style="display:none;" multiple="multiple"></select>
+		 
+		<!-- Cart List Header -->
+		<div class="scCartListHead">
+			<table width='100%'>
+				<tr>
+					<td>&nbsp;&nbsp;Product</td>
+					<td width='80px'>Quantity</td>
+					<td width='130px'>Amount ($)</td>
+				</tr>
+			</table>
+		</div>
+		<!-- Cart List: Selected Products are listed inside div below -->
+		<div id="sc_cartlist" class="scCartList"></div><br>
+		<div class="scCartListHead">
+			<table width='100%'>
+				<tr>
+					<td> 
+						<!-- Message Label -->
+						<span id="sc_message"></span>
+					</td>
+					<td width='100px'>Subtotal ($):</td>
+					<td width='120px'>
+						<!-- Sub Total Label -->
+						<span id="sc_subtotal"></span> 
+					</td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<!-- Checkout Button -->
+		<input style="width:200px;height:35px;float:left;" type="button" class="scBtn" value="Register Interest" >
+		<input style="width:200px;height:35px;float:right;" type="button" class="scBtn" value="Purchase" >	
+	</div>
 </div>

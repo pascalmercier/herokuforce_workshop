@@ -1,0 +1,162 @@
+/* 
+ * SmartCart - jQuery cart plugin 
+ * CSS Document
+ *   
+ * Home Pages:
+ * http://fivelist.summerhost.info
+ * http://tech-laboratory.blogspot.com
+ * http://techlaboratory.wordpress.com
+ *  
+ * Date: 05-SEP-2009
+ * Version: 0.95 beta
+ */
+
+body {
+  font : normal 12px Verdana, Arial, Helvetica, sans-serif;
+  color:#0464BB; 
+  margin:0;
+  padding:0;
+}
+.scContainer {
+	padding: 5px;
+	border: 1px solid #E0E0E0; 
+	width: auto;
+	margin: 5px; 
+	float:left;   
+  -moz-border-radius:5px;
+  -webkit-border-radius: 5px;
+  font-family : Verdana,Tahoma, Arial, Helvetica, sans-serif;
+	font-size: 12px;  
+  position:relative;
+	left: 5%;
+  right:5%;
+}
+.scTitle {
+	padding: 2px; 
+	float:left;
+	font-weight: bold; 
+	margin-bottom: 3px; 
+	float:left;
+}
+.scBtn {
+  background            : #5A5655;
+  color                 : #FFFFFF;
+  margin                : 0;
+  padding               : 1px 5px 1px 5px;
+  text-align            : center;
+  border                : 1px solid #5A5655;    
+  text-decoration       : none; 
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;    
+}
+.scBtn:hover{
+  background      : #EA8511;
+  color           : #FFFFFF;
+  border          : 1px solid #EA8511; 
+  text-decoration : none; 
+}
+.scText{ 
+  border: 1px solid #E0E0E0; 
+  width:25px;
+  padding : 1px 5px 1px 5px;
+}  
+.scText:focus{ 
+  border: 1px solid #EA8511; 
+} 
+.scCart { 
+	padding: 10px 5px 5px 5px;
+	border: 1px solid #E0E0E0; 
+	width: 450px;
+	margin: 5px;
+	float:left;
+  -moz-border-radius:5px;
+  -webkit-border-radius: 5px;	
+}
+.scProductList {
+	padding: 10px 5px 5px 5px;
+	border: 1px solid #E0E0E0;
+	width: 400px;
+	height:360px;
+	overflow:auto;
+	margin: 5px;
+	float:left;
+  -moz-border-radius:5px;
+  -webkit-border-radius: 5px;
+}
+.scCartList {
+	position: relative;
+	margin: 0;
+	padding: 1px;
+	background: #F8F8F8;
+	border: 1px solid #E0E0E0;
+	height: 250px;
+	overflow:auto;
+}
+.scCartListHead {
+	padding: 0;
+	background: #F8F8F8;
+	border: 1px solid #E0E0E0; 
+	margin: 1px 0 1px 0;
+	height: 25px;
+	font-weight: bold; 
+}
+.scCartListItem {
+	position: relative;
+	margin-left: 0;
+	padding-left: 0;
+	list-style: none;
+	background: #F8F8F8;
+	border: 1px solid #E0E0E0; 
+	margin: 1px 0 0 0;
+	line-height: 1em;
+}
+.scCartListItem:hover {
+	background-color: #e5e5e5;
+}
+.scProductListItem {
+  width:auto;
+  margin:1px;
+  background:#F8F8F8;
+  overflow:show;
+  padding:0;   /*12px 0px 2px 5px;*/    
+  color:#0464BB;
+  text-align:left;
+  border:#E0E0E0 solid 1px;      
+  -moz-border-radius:5px;
+  -webkit-border-radius: 5px;
+}
+.scProductSelect {
+	display: none;
+	visibility:hidden;
+}
+.scULList {
+	margin: 0.25em 0 1em 0; 
+	position: relative;
+	display: block;
+	padding-left: 0; 
+	list-style: none; 
+}
+.scListItemLabel {
+	padding: 5px; 
+	display: block;
+}
+.scListItemRemove {
+	position: absolute;
+	right: 0; 
+	top: 6px; 
+  background            : #5A5655;
+  color                 : #FFFFFF;
+  margin                : 0;
+  padding               : 1px 5px 2px 5px;
+  text-align            : center;
+  border                : 1px solid #5A5655;    
+  text-decoration       : none; 
+  -moz-border-radius    : 5px;
+  -webkit-border-radius : 5px;  	
+}
+.scListItemRemove:hover{
+  background      : #EA8511;
+  color           : #FFFFFF;
+  border          : 1px solid #EA8511; 
+  text-decoration : none; 
+}
