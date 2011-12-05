@@ -6,6 +6,7 @@
 GET     /                                       Application.index
 GET		/config									Application.config
 
+GET		/register								Application.register
 GET		/purchase								Application.purchase
 GET		/result									Application.result
 

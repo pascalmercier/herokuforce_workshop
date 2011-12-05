@@ -63,7 +63,7 @@ public class SfdcOAuth {
         return gson.fromJson(response.getJson(), SfdcOAuthResponse.class);
     }
     
-    public static void retrieveVerificationCode() throws UnsupportedEncodingException{
+    public static String retrieveVerificationCode() throws UnsupportedEncodingException{
     	String urlStr = environment + "?" + 
 						"response_type=code" + 
 						"&client_id=" + consumerKey + 
@@ -74,7 +74,7 @@ public class SfdcOAuth {
     	System.out.println("** Init OAuth authorization with Salesforce **");
     	System.out.println(urlStr);
     	
-    	throw new Redirect(urlStr);
+    	return urlStr;
     }
     
     public SfdcOAuthResponse refreshSfdcAccessToken(String refreshToken) {

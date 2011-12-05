@@ -50,20 +50,73 @@
 					// Other Options
 					highlight: true     // toggle highlight effect to the added item
 				});
-				
-				$("#sc_cart form").submit(function(){
-					var idString = '';
-					var qtyString = '';
-					$(".scCartListItem").each(function(index)
-						{
-							idString += $(this).attr('rel') + ',';
-							qtyString += $(this).find('.cartQty').html() + ',';
+			});	
+			
+			function purchase(){
+				var ids = new Array();
+				var cartContent = new Object();
+				if( $(".scCartListItem").size() !=0 ) {
+					$(".scCartListItem").each(function(index) {
+						var id = $(this).attr('rel');
+						var price = $("#prod_price" + id).html();
+						var qty = $(this).find('.cartQty').html();
+						var name = $("#prod_name" + id).html();
+						ids.push(id);
+						
+						cartContent['' + id] = {price: price, quantity: qty, name: name};
 					});
-					idString = idString.substring(0, idString.length()-1);
-					qtyString = qtyString.substring(0, qtyString.length()-1);
-					alert('alpha');
-				});
-			});
+					
+					cartContent['ids'] = ids;
+				
+					$.ajax({
+				        url: '/purchase',
+				        type: 'GET',
+				        data: cartContent,
+				        success: function(data, textStatus, jqXHR){
+				        	console.log('Success! now redirect to: ' + jqXHR.responseText);
+				        	window.location = jqXHR.responseText;
+				        },
+				        error: function(data) {
+				            console.log('Failure: ' + data.statusText);
+				        }
+				    });
+				} else {
+					alert("Put products in your cart before purchasing");
+				}
+			}
+			
+			function register(){
+				var ids = new Array();
+				var cartContent = new Object();
+				if( $(".scCartListItem").size() !=0 ) {
+					$(".scCartListItem").each(function(index) {
+						var id = $(this).attr('rel');
+						var price = $("#prod_price" + id).html();
+						var qty = $(this).find('.cartQty').html();
+						var name = $("#prod_name" + id).html();
+						ids.push(id);
+						
+						cartContent['' + id] = {price: price, quantity: qty, name: name};
+					});
+					
+					cartContent['ids'] = ids;
+				
+					$.ajax({
+				        url: '/register',
+				        type: 'GET',
+				        data: cartContent,
+				        success: function(data, textStatus, jqXHR){
+				        	console.log('Success! now redirect to /result');
+				        	window.location = "/result?action=register";
+				        },
+				        error: function(data) {
+				            console.log('Failure: ' + data.statusText);
+				        }
+				    });
+				} else {
+					alert("Put products in your cart before purchasing");
+				}
+			}
 		</script>
     </head>
     <body>

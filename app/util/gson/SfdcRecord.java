@@ -49,6 +49,28 @@ public class SfdcRecord {
 	public String totalInventory;	
 	
 	/*
+	 * Line_Items__c fields
+	 */
+	@SerializedName("Value__c")
+	public String value;
+	
+	@SerializedName("Units_Sold__c")
+	public Integer unitsSold;
+	
+	@SerializedName("Unit_Price__c")
+	public String unitPrice;
+	
+	//@SerializedName("Name")
+	//public String merchandiseName;
+	
+	/*
+	 * Invoice_Statement__c fields
+	 */
+	@SerializedName("Invoice_Value__c")
+	public String invoiceValue;
+	
+	
+	/*
 	 * Lead fields
 	 */
 	@SerializedName("FirstName")

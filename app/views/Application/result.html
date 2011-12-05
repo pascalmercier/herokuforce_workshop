@@ -1,4 +1,44 @@
 #{extends 'main.html' /}
 #{set title:'result.html' /}
 
-Here goes the summary of the placement (list of purchased/registered products and go back button).
+<h1>Summay of the items you ${action}</h1>
+
+<table border="0" cellpadding="0" cellspacing="0" align="center">
+<tbody><tr><td>
+
+<div id="sc_cart" style="width:850px;" class="scContainer"> 
+             
+               <div class="scCartListHead">
+                   <table width="100%"><tbody><tr>
+                     <td>&nbsp;&nbsp;Product</td>
+                     <td width="80px">Quantity</td>
+                     <td width="130px">Amount ($)</td>
+                   </tr></tbody></table>
+            	 </div>
+				#{list items:lineItems, as:'li'}
+               <div class="scCartListHead">
+                   <table width="100%"><tbody><tr>
+                     <td>&nbsp;&nbsp;${li.name}</td>
+                     <td width="80px">${li.unitsSold}</td>
+                     <td width="130px">${li.unitPrice}</td>
+                   </tr></tbody></table>
+            	 </div>
+            	 #{/list}
+               <div class="scCartListHead">
+                   <table width="100%"><tbody><tr>
+                     <td>
+                        <!-- Message Label -->
+                        <span id="sc_message"></span></td>
+                     <td width="100px">Subtotal ($):</td>
+                     <td width="120px"> 
+                        <!-- Sub Total Label -->
+                        <span>${total}</span>
+                     </td>
+                   </tr></tbody></table>
+            	 </div>
+               <br>
+               <input style="width:200px;height:35px;float:left;" type="button" class="scBtn" value="&lt;&lt; Back to the shop" onClick="window.location='/'">
+</div>
+
+</td></tr>
+</tbody></table>

@@ -7,16 +7,13 @@
 		<div class="scProductListItem">
 			<table border="0" cellpadding="2" cellspacing="2">
 				<tr>
-					<td rowspan="4"><img width="100px" src="public/images/${m.id}.jpg"/></td>
-				</tr>
-				<tr>
 					<td><strong><span id="prod_name${m.id}">${m.name}</span></strong></td>
 				</tr>
 				<tr>
 					<td><small><span id="prod_desc">${m.desc}</span></small></td>
 				</tr>
 				<tr>
-					<td><label>Price:</label> $<span id="prod_price${m.id}">${m.price}</span></td>
+					<td><label>Price:</label> $<span name="prod_price" id="prod_price${m.id}">${m.price}</span></td>
 				</tr>
 				<tr>
 					<td><label>Quantity:</label>
@@ -30,7 +27,6 @@
 	
 	
 	<div id="sc_cart" class="scCart">
-	#{form @Application.makePurchase()}
 		<!-- Selected Product ID/Quantity are stored on the <select> element below -->
 		<select id="product_list" name="product_list[]" style="display:none;" multiple="multiple"></select>
 		 
@@ -62,12 +58,9 @@
 			</table>
 		</div>
 		<br>
-		<input type="hidden" name="merchIDList" id="merchIDList"/>
-		<input type="hidden" id="merchQList" name="merchQList"/>
 		<!-- Checkout Button -->
-		<input style="width:200px;height:35px;float:left;" type="button" class="scBtn regBtn" value="Register Interest" >
-		<input style="width:200px;height:35px;float:right;" type="submit" class="scBtn purBtn" value="Purchase" >	
-	#{/form}
+		<input style="width:200px;height:35px;float:left;" type="button" class="scBtn regBtn" value="Register Interest" onclick="register();" >
+		<input style="width:200px;height:35px;float:right;" type="button" class="scBtn purBtn" value="Purchase" onClick="purchase();" >	
 	</div>
 	
 </div>

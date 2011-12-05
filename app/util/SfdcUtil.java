@@ -59,7 +59,7 @@ public class SfdcUtil {
 		return jsonElement.getAsJsonObject().get("id").getAsString();
 	}
 	
-	public static void insertLineItems(Map<String, Object> lineItems, String sessionId, String whichCache) {
+	public static void insertLineItems(Map<String, Object> lineItem, String sessionId, String whichCache) {
 		// Get instanceUrl and userInfo from cache
 		String instanceUrl = Cache.get("instanceUrl", String.class);
 		Map<String, String> userInfo = Cache.get(sessionId + "-" + whichCache, Map.class);
@@ -70,7 +70,7 @@ public class SfdcUtil {
 		
 		// Serialize lineItems into a json string and push it into the body
 		Gson gson = new Gson();
-		String jsonData = gson.toJson(lineItems);
+		String jsonData = gson.toJson(lineItem);
 		System.out.println("Json Data: " + jsonData);
 		request.body(jsonData);
 		

@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,59 +28,141 @@ public class Application extends Controller {
         render(merchandises);
     }
     
-    public static void purchase() {
+    public static String purchase() {
+    	String authURL = null;
     	try {
-			SfdcOAuth.retrieveVerificationCode();
+			authURL = SfdcOAuth.retrieveVerificationCode();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+    	
+    	String[] ids = params.getAll("ids[]");
+    	Map<String, List<String>> lineItems = new HashMap<String, List<String>>(); 
+    	
+    	for(String id : ids){
+    		String price = params.get(id + "[price]");
+    		String qty = params.get(id + "[quantity]");
+    		String name = params.get(id + "[name]");
+    		System.out.println("Product id " + id + ": price=" + price + " qty=" + qty + " name=" + name);
+    		
+    		List<String> lineItemParams = new ArrayList<String>();
+    		lineItemParams.add(price);
+    		lineItemParams.add(qty);
+    		lineItemParams.add(name);
+    		    		
+    		lineItems.put(id, lineItemParams);
+    	}
+    	
+    	System.out.println("** Save cart content in cache **");
+    	Cache.set(session.getId() + "-cart", lineItems, "30mn");
+    	
+    	return authURL;		
     }
     
-    
-    public static void makePurchase(String merchIDList, String merchQList)
-    { //** HEY FRENCHIE-
-    		//Ok so I set up the form to return to this method, and JQ is creating composite strings of Quantities and IDs, in order
-    		//To provide you with what you need in config(). I can't get this to run 100% but it should give you a good position Monday.
-    		//I added photos, the logic there is just ot look up the id. Good times.
-    	/*String[] IDList = merchIDList.split(",");
-		String[] QList = merchQList.split(",");
-		Map<String,Object> idQMap = new HashMap<String,Object>();
-		Integer x = 0;
-		for(String s : IDList)
-		{
-			idQMap.put(IDList[x], QList[x]);
-			x++;
-		}
-		//now have a map of ID,Quantity
+    public static void register() {
+    	
+    	String[] ids = params.getAll("ids[]");
+    	Map<String, List<String>> lineItems = new HashMap<String, List<String>>(); 
+    	
+    	for(String id : ids){
+    		String price = params.get(id + "[price]");
+    		String qty = params.get(id + "[quantity]");
+    		String name = params.get(id + "[name]");
+    		System.out.println("Product id " + id + ": price=" + price + " qty=" + qty + " name=" + name);
+    		
+    		List<String> lineItemParams = new ArrayList<String>();
+    		lineItemParams.add(price);
+    		lineItemParams.add(qty);
+    		lineItemParams.add(name);
+    		    		
+    		lineItems.put(id, lineItemParams);
+    	}
+    	
+    	/*
+    	System.out.println("** Save cart content in cache **");
+    	Cache.set(session.getId() + "-cart", lineItems, "30mn");
     	*/
+    	
+    	System.out.println("** Insert invoiceStatement into Salesforce **");
+    	String invoiceStatementId = SfdcUtil.insertInvoiceStatement(session.getId(), "sfdcInfo");
+    	
+    	Cache.set(session.getId() + "-invoice#", invoiceStatementId, "30mn");
+    	
+    	/*
+    	System.out.println("** Retrieve cart content from cache **");
+    	Map<String, List<String>> cachedLineItems = Cache.get(session.getId() + "-cart", Map.class);
+    	*/
+    	
+    	for(String id : lineItems.keySet()){
+    		String price = lineItems.get(id).get(0);
+    		String qty = lineItems.get(id).get(1);
+    		String name = lineItems.get(id).get(2);
+    		
+    		Map<String, Object> lineItem = new HashMap<String, Object>();
+	    	//lineItem.put("Name", invoiceStatementId + "." + id);
+	    	lineItem.put("Name", name);
+	    	lineItem.put("Invoice_Statement__c", invoiceStatementId);
+	    	lineItem.put("Merchandise__c", id);
+	    	lineItem.put("Unit_Price__c", price);
+	    	lineItem.put("Units_Sold__c", qty);
+    	
+	    	SfdcUtil.insertLineItems(lineItem, session.getId(), "sfdcInfo");
+    	}
     }
-    
     
     public static void config() {
     	SfdcOAuthResponse response = SfdcOAuth.retrieveSfdcAccessToken();
     	initCacheFromResponse(response, "userInfo");
     	
+    	System.out.println("** Insert invoiceStatement into Salesforce **");
     	String invoiceStatementId = SfdcUtil.insertInvoiceStatement(session.getId(), "userInfo");
     	
+    	Cache.set(session.getId() + "-invoice#", invoiceStatementId, "30mn");
+    	
+    	System.out.println("** Retrieve cart content from cache **");
+    	Map<String, List<String>> cachedLineItems = Cache.get(session.getId() + "-cart", Map.class);
+    	
+    	for(String id : cachedLineItems.keySet()){
+    		String price = cachedLineItems.get(id).get(0);
+    		String qty = cachedLineItems.get(id).get(1);
+    		String name = cachedLineItems.get(id).get(2);
+    		
+    		Map<String, Object> lineItem = new HashMap<String, Object>();
+	    	//lineItem.put("Name", invoiceStatementId + "." + id);
+	    	lineItem.put("Name", name);
+	    	lineItem.put("Invoice_Statement__c", invoiceStatementId);
+	    	lineItem.put("Merchandise__c", id);
+	    	lineItem.put("Unit_Price__c", price);
+	    	lineItem.put("Units_Sold__c", qty);
+    	
+	    	SfdcUtil.insertLineItems(lineItem, session.getId(), "userInfo");
+    	}
     	
     	
-    	
-    	Map<String, Object> lineItem = new HashMap<String, Object>();
-    	lineItem.put("Name", "");
-    	lineItem.put("Invoice_Statement__c", invoiceStatementId);
-    	lineItem.put("Merchandise__c", "");
-    	lineItem.put("Unit_Price__c", "");
-    	lineItem.put("Units_Sold__c", "");
-    	
-    	
-    	//SfdcUtil.insertLineItems(lineItems, session.getId(), "user-Info");
-    	throw new Redirect("/result");
+    	throw new Redirect("/result?action=purchase");
     }
     
     public static void result() {
-    	System.out.println("Query to get all lineItems related to the created Invoice Statement");
-    	render();
+    	System.out.println("** Get all lineItems related to the newly created Invoice Statement **");
+    	String invoiceStatementId = Cache.get(session.getId() + "-invoice#", String.class);
+    	
+    	String query = "Select l.Value__c, l.Units_Sold__c, l.Unit_Price__c, l.Name, l.Merchandise__r.Name, l.Id From Line_Item__c l where l.Invoice_Statement__c = '" + invoiceStatementId + "'";
+    	List<SfdcRecord> lineItems = SfdcUtil.getRecords(session.getId(), query);
+    	
+    	query = "Select i.Invoice_Value__c From Invoice_Statement__c i where i.Id = '" + invoiceStatementId + "' limit 1";
+    	List<SfdcRecord> invoiceStatement = SfdcUtil.getRecords(session.getId(), query);
+    	String total = invoiceStatement.get(0).invoiceValue;
+    	
+    	System.out.println(total);
+    	
+    	String action = params.get("action");
+    	if(action.compareTo("register") == 0){
+    		action = "registered";
+    	} else if(action.compareTo("purchase") == 0){
+    		action = "purchased";
+    	}
+    	
+    	render(lineItems, total, action);
     }
     
     private static void initCacheFromResponse(SfdcOAuthResponse response, String whichCache){
