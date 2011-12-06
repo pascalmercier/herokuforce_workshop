@@ -4,20 +4,20 @@
 <div id="smartcart" class="scContainer"> 
 	<div id="sc_productlist" class="scProductList">
 		#{list items:merchandises, as:'m'}
-		<div class="scProductListItem">
+		<div class="scProductListItem ${m_isLast ? 'last' : ''}${m_isFirst ? 'first' : ''}">
 			<table border="0" cellpadding="2" cellspacing="2">
 				<tr>
-					<td><strong><span id="prod_name${m.id}">${m.name}</span></strong></td>
+					<td><strong><span class="prod_name" id="prod_name${m.id}">${m.name}</span></strong></td>
 				</tr>
 				<tr>
-					<td><small><span id="prod_desc">${m.desc}</span></small></td>
+					<td><small><div class="prod_desc">${m.desc}</div></small></td>
 				</tr>
 				<tr>
 					<td><label>Price:</label> $<span name="prod_price" id="prod_price${m.id}">${m.price}</span></td>
 				</tr>
 				<tr>
 					<td><label>Quantity:</label>
-					<input name="prod_qty" class="scText" id="prod_qty${m.id}" value="1" size="3" type="text">
+					&nbsp;&nbsp;<input name="prod_qty" class="scText" id="prod_qty${m.id}" value="1" size="3" type="text">
 					<input type="button" rel="${m.id}" class="scItemButton scBtn" value="Add Product"></td>
 				</tr>
 			</table>

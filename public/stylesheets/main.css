@@ -1,0 +1,70 @@
+html, body{
+	width: 100%;
+	height: 100%;
+	min-height: 600px;
+	min-width: 800px;
+	background-image: url('/public/images/bg_jobsTop.png');
+	background-repeat: repeat-x;
+	position: relative;
+	font-family: arial, helvetica, sans-serif;
+}
+
+#header{
+	margin: 0px 0px 30px 0px;
+	padding: 0;
+	border: 0;
+	font-weight: inherit;
+	font-style: inherit;
+	font-size: 100%;
+	font-family: arial, helvetica, sans-serif;
+	vertical-align: baseline;
+	min-width: 1044px;
+	background-color: #29264D;
+	border-bottom-style: solid;
+	border-bottom-width: 3px;
+	border-bottom-color: #494573;
+	height: 110px;
+}
+
+#header-logo{
+	width: 100px;
+	margin: 10px;
+	float: left;
+}
+
+#header-title{
+	color: #C9C3E6;
+	font-weight: bold;
+	font-family: arial, helvetica, sans-serif;
+	float: left;
+	line-height: 120px;
+	padding-left: 40px;
+	font-size: 30px;
+}
+
+
+#decoration{
+	width: 180px;
+	height: 600px;
+	position: absolute;
+	bottom: 0px;
+	right: 5%;
+	top: 35px;
+	background-color: transparent;
+	background-image: url('/public/images/jobs_katana.png');
+	background-repeat: no-repeat;
+}
+
+#result-title{
+	color: #8D79F2;
+	padding-left: 30px;
+}
+
+#credits{
+	font-style: italic;
+	font-size: 10px;
+	position: absolute;
+	bottom: -15px;
+	left: 2%;
+	color: #22232C;
+}

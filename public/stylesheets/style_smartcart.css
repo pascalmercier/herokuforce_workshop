@@ -12,24 +12,29 @@
  */
 
 body {
-  font : normal 12px Verdana, Arial, Helvetica, sans-serif;
+  font : normal 12px Arial, Helvetica, sans-serif;
   color:#0464BB; 
   margin:0;
   padding:0;
 }
 .scContainer {
 	padding: 5px;
-	border: 1px solid #E0E0E0; 
 	width: auto;
+	min-width: 890px;
 	margin: 5px; 
-	float:left;   
-  -moz-border-radius:5px;
-  -webkit-border-radius: 5px;
-  font-family : Verdana,Tahoma, Arial, Helvetica, sans-serif;
+	float:left;
+ 	font-family : Arial, Helvetica, sans-serif;
 	font-size: 12px;  
-  position:relative;
+  	position:relative;
 	left: 5%;
-  right:5%;
+  	right:5%;
+  	-webkit-box-shadow: 2px 2px 7px 0px #151515;
+	-moz-box-shadow: 2px 2px 7px 0px #151515;
+	box-shadow: 2px 2px 7px 0px #151515;
+	background-color: #22232C;
+	-webkit-border-radius: 14px;
+	-moz-border-radius: 14px;
+	border-radius: 14px;
 }
 .scTitle {
 	padding: 2px; 
@@ -38,25 +43,33 @@ body {
 	margin-bottom: 3px; 
 	float:left;
 }
-.scBtn {
-  background            : #5A5655;
-  color                 : #FFFFFF;
+.scBtn, .scListItemRemove {
+  background            : #191A20;
+  color                 : #82859E;
   margin                : 0;
   padding               : 1px 5px 1px 5px;
   text-align            : center;
-  border                : 1px solid #5A5655;    
+  border                : 0px solid #1F2028;    
   text-decoration       : none; 
-  -moz-border-radius    : 5px;
-  -webkit-border-radius : 5px;    
+  -moz-border-radius    : 20px;
+  -webkit-border-radius : 20px;    
 }
-.scBtn:hover{
-  background      : #EA8511;
+.scBtn:hover, .scListItemRemove:hover{
+  background      : #191A20;
   color           : #FFFFFF;
-  border          : 1px solid #EA8511; 
+  border          : 0px solid #1F2028; 
   text-decoration : none; 
+  cursor		: pointer;
 }
+.scItemButton{
+	float: right;
+  	padding: 5px 10px 5px 10px;
+}
+
 .scText{ 
-  border: 1px solid #E0E0E0; 
+  border: 0px solid #1F2028; 
+  background: #191A20;
+  color: #82859E;
   width:25px;
   padding : 1px 5px 1px 5px;
 }  
@@ -65,7 +78,6 @@ body {
 } 
 .scCart { 
 	padding: 10px 5px 5px 5px;
-	border: 1px solid #E0E0E0; 
 	width: 450px;
 	margin: 5px;
 	float:left;
@@ -74,7 +86,6 @@ body {
 }
 .scProductList {
 	padding: 10px 5px 5px 5px;
-	border: 1px solid #E0E0E0;
 	width: 400px;
 	height:360px;
 	overflow:auto;
@@ -87,43 +98,58 @@ body {
 	position: relative;
 	margin: 0;
 	padding: 1px;
-	background: #F8F8F8;
-	border: 1px solid #E0E0E0;
 	height: 250px;
 	overflow:auto;
 }
 .scCartListHead {
 	padding: 0;
-	background: #F8F8F8;
-	border: 1px solid #E0E0E0; 
 	margin: 1px 0 1px 0;
 	height: 25px;
-	font-weight: bold; 
+	font-weight: bold;
+	color: #8D79F2;
+	font-size: 14px;
 }
 .scCartListItem {
 	position: relative;
-	margin-left: 0;
 	padding-left: 0;
+	padding-right: 10px;
 	list-style: none;
-	background: #F8F8F8;
-	border: 1px solid #E0E0E0; 
-	margin: 1px 0 0 0;
+	background: #1F2028;
+	margin: 5px 0px;
 	line-height: 1em;
+	color: #82859E;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
 }
 .scCartListItem:hover {
-	background-color: #e5e5e5;
+	background-color: #C2E3F3;
+	color: #22232C;
 }
 .scProductListItem {
-  width:auto;
-  margin:1px;
-  background:#F8F8F8;
-  overflow:show;
-  padding:0;   /*12px 0px 2px 5px;*/    
-  color:#0464BB;
-  text-align:left;
-  border:#E0E0E0 solid 1px;      
-  -moz-border-radius:5px;
-  -webkit-border-radius: 5px;
+	width:auto;
+	margin:1px;
+	background:#22232C;
+	overflow:show;
+	padding:5px 0px;   /*12px 0px 2px 5px;*/    
+	color:#82859E;
+	text-align:left;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-right-width: 0px;
+	border-top-color: #1F2028;
+	border-top-style: solid;
+	border-top-width: 4px;
+}
+.scProductListItem.first{
+	border-top-width: 0px;
+}
+.prod_name{
+	font-size: 14px;
+}
+.prod_desc{
+	padding-left: 20px;
+	padding-bottom: 10px;
 }
 .scProductSelect {
 	display: none;
@@ -134,7 +160,8 @@ body {
 	position: relative;
 	display: block;
 	padding-left: 0; 
-	list-style: none; 
+	list-style: none;
+	color: #8D79F2; 
 }
 .scListItemLabel {
 	padding: 5px; 
@@ -142,21 +169,16 @@ body {
 }
 .scListItemRemove {
 	position: absolute;
-	right: 0; 
-	top: 6px; 
-  background            : #5A5655;
-  color                 : #FFFFFF;
-  margin                : 0;
-  padding               : 1px 5px 2px 5px;
-  text-align            : center;
-  border                : 1px solid #5A5655;    
-  text-decoration       : none; 
-  -moz-border-radius    : 5px;
-  -webkit-border-radius : 5px;  	
+	right: 5px; 
+	top: 3px; 
+	padding: 5px 10px 5px 10px;
 }
-.scListItemRemove:hover{
-  background      : #EA8511;
-  color           : #FFFFFF;
-  border          : 1px solid #EA8511; 
-  text-decoration : none; 
+
+.cartQty, .cartTotal{
+	text-indent: 20px;
+}
+
+.resultContainer{
+	left: 0;
+	right: 0;
 }
