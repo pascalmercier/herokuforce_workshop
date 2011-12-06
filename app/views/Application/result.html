@@ -1,12 +1,12 @@
 #{extends 'main.html' /}
 #{set title:'result.html' /}
 
-<h1>Summay of the items you ${action}</h1>
+<h3 id="result-title">Summay of the items you ${action}</h3>
 
 <table border="0" cellpadding="0" cellspacing="0" align="center">
 <tbody><tr><td>
 
-<div id="sc_cart" style="width:850px;" class="scContainer"> 
+<div id="sc_cart" style="width:850px;" class="scContainer resultContainer"> 
              
                <div class="scCartListHead">
                    <table width="100%"><tbody><tr>
@@ -16,11 +16,11 @@
                    </tr></tbody></table>
             	 </div>
 				#{list items:lineItems, as:'li'}
-               <div class="scCartListHead">
+               <div class="scULList scCartListItem" style="padding: 10px 0px;">
                    <table width="100%"><tbody><tr>
                      <td>&nbsp;&nbsp;${li.name}</td>
-                     <td width="80px">${li.unitsSold}</td>
-                     <td width="130px">${li.unitPrice}</td>
+                     <td width="80px" class="cartQty">${li.unitsSold}</td>
+                     <td width="130px" class="cartTotal">${li.unitPrice}</td>
                    </tr></tbody></table>
             	 </div>
             	 #{/list}
