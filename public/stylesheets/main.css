@@ -64,7 +64,7 @@ html, body{
 	font-style: italic;
 	font-size: 10px;
 	position: absolute;
-	bottom: -15px;
+	bottom: 0px;
 	left: 2%;
 	color: #22232C;
 }
