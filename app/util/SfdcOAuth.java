@@ -19,7 +19,7 @@ public class SfdcOAuth {
 	private final static String accessTokenURL = "https://login.salesforce.com/services/oauth2/token";
 	private final static String consumerKey = "3MVG9PhR6g6B7ps6wbfHR.lgxq7aTdUaosLfLVpJiUMLc5C3M82GcUfYrNZxdpURX6lGMGJ0xO1HIT9PLxeLz";
 	private final static String consumerSecret = "4310885807798930562";
-	private final static String redirectUri = "https://localhost:9090/config";
+	private final static String redirectUri = "https://herokuforce-smartcart.herokuapp.com/config";
 	
 	// Credentials for public access
 	private final static String username = "sse@herokuforce.com";
