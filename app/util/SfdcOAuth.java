@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import play.Logger;
+import play.Play;
 import play.libs.WS;
 import play.libs.WS.HttpResponse;
 import play.mvc.Scope.Params;
@@ -15,15 +16,15 @@ import util.gson.SfdcOAuthResponse;
 import com.google.gson.Gson;
 
 public class SfdcOAuth {
-	private final static String environment = "https://login.salesforce.com/services/oauth2/authorize";
-	private final static String accessTokenURL = "https://login.salesforce.com/services/oauth2/token";
-	private final static String consumerKey = "3MVG9PhR6g6B7ps6wbfHR.lgxq7aTdUaosLfLVpJiUMLc5C3M82GcUfYrNZxdpURX6lGMGJ0xO1HIT9PLxeLz";
-	private final static String consumerSecret = "4310885807798930562";
-	private final static String redirectUri = "https://herokuforce-smartcart.herokuapp.com/config";
+	private final static String environment = Play.configuration.getProperty("sfdc.environment");
+	private final static String accessTokenURL = Play.configuration.getProperty("sfdc.accessTokenURL");
+	private final static String consumerKey = Play.configuration.getProperty("sfdc.consumerKey");
+	private final static String consumerSecret = Play.configuration.getProperty("sfdc.consumerSecret");
+	private final static String redirectUri = Play.configuration.getProperty("sfdc.redirectUri");
 	
 	// Credentials for public access
-	private final static String username = "sse@herokuforce.com";
-	private final static String password = "DublinRocks1";	
+	private final static String username = Play.configuration.getProperty("sfdc.public.username");
+	private final static String password = Play.configuration.getProperty("sfdc.public.password");	
 	
 	public static SfdcOAuthResponse retrieveSfdcAccessToken() {
     	System.out.println("** Retrieve access token **");
@@ -53,7 +54,7 @@ public class SfdcOAuth {
         params.put("grant_type", "password");
         params.put("username", username);
         params.put("password", password);
-
+        
         HttpResponse response = WS.url(accessTokenURL).params(params).post();
         if (!response.success()) {
         	Logger.error("Error when trying to get access code: " + response.getString());
