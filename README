@@ -1,3 +1,5 @@
+This application complete the Force.com workbook by providing a dedicated front-end to the custom app you just built with Salesforce.com. You must have Play! framework installed on your machine (http://www.playframework.org/documentation/1.2.4/install).
+
 1 - Complete the Force.com Workbook (http://www.salesforce.com/us/developer/docs/workbook/index.htm)
 3 - Add Merchandises records into your brand new Force.com application
 3 - Clone this Github repository or download the code as .zip
@@ -6,15 +8,16 @@
 6 - Intitialize a GIT repository ($ git init)
 7 - Create a new Heroku app ($ heroku create -s cedar)
 8 - Add Memcache to your Heroku app ($ heroku addons:add memcache)
-9 - Open the file <APP_ROOT>/conf/application.conf and go to the very bottom of the file
-10 - Set memcache configuration variables. Get the values from heroku config  ($ heroku config)
-11 - Set the Salesforce configuration with your consumer key, secret and callback url you'll get from the remote access you created
-12 - Set the username and password in the config file with your credentials
-13 - Run the app ($ play run) and access it locally (http://localhost:9000) 
-Note it must work locally before going further
-14 - Change the callback URL of your remote access with the address of your brand new Heroku app. It should be something like http://awesome-name-0000.herokuapp.com/config
-15 - Change the redirect URL in <APP_ROOT>/conf/application.conf file with the same previous URL
-16 - Commit the changes you made on GIT ($ git add .; git commit -m 'set conf vars for Heroku deployement')
-17 - Push your app to Heroku ($ git push heroku master)
-18 - Open your app and enjoy! ($ heroku open)
+9 - Add SSL to your Heroku app ($ heroku addons:add piggyback_ssl)
+10 - Open the file <APP_ROOT>/conf/application.conf and go to the very bottom of the file
+11 - Set memcache configuration variables. Get the values from heroku config  ($ heroku config)
+12 - Set the Salesforce configuration with your consumer key, secret and callback url you'll get from the remote access you created
+13 - Set the username and password in the config file with your credentials
+14 - Run the app ($ play run) and access it locally (http://localhost:9000) 
+Note it must work locally before going further (Make sure you have logged out of any other Salesforce instances in the current browser before you run the service)
+15 - Change the callback URL of your remote access with the secured address of your brand new Heroku app. It should be something like https://awesome-name-0000.herokuapp.com/config
+16 - Change the redirect URL in <APP_ROOT>/conf/application.conf file with the same previous https URL
+17 - Commit the changes you made on GIT ($ git add .; git commit -m "set conf vars for Heroku deployement")
+18 - Push your app to Heroku ($ git push heroku master)
+19 - Open your app and enjoy! ($ heroku open)
 
