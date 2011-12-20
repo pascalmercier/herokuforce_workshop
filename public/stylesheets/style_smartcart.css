@@ -117,7 +117,7 @@ body {
 	background: #1F2028;
 	margin: 5px 0px;
 	line-height: 1em;
-	color: #82859E;
+	color: #C9C3E6;
 	-webkit-border-radius: 8px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
@@ -132,7 +132,7 @@ body {
 	background:#22232C;
 	overflow:show;
 	padding:5px 0px;   /*12px 0px 2px 5px;*/    
-	color:#82859E;
+	color:#C9C3E6;
 	text-align:left;
 	border-bottom-width: 0px;
 	border-left-width: 0px;
@@ -161,7 +161,7 @@ body {
 	display: block;
 	padding-left: 0; 
 	list-style: none;
-	color: #8D79F2; 
+	color: #C9C3E6; 
 }
 .scListItemLabel {
 	padding: 5px; 
